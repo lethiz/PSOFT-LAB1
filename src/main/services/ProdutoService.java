@@ -1,6 +1,9 @@
 package main.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -33,5 +36,15 @@ public class ProdutoService {
 
 	public void deleteProduto(String idProduto) {
 		this.prodRep.delProd(idProduto);
+	}
+
+    public ArrayList<Produto> searchProduto(String nomeProduto) {
+		ArrayList<Produto> produtos = convertCollection();
+		return produtos.stream().filter(o -> nomeProduto.equals(o.getNome())).collect(Collectors.toCollection(ArrayList<Produto>::new));
+    }
+
+	private ArrayList<Produto> convertCollection() {
+		Collection<Produto> produtos = this.prodRep.getAll();
+		return new ArrayList<Produto>(Arrays.asList(produtos.toArray(new Produto[0])));
 	}
 }

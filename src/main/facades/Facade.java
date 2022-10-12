@@ -5,9 +5,11 @@ import main.repositories.ProdutoRepository;
 import main.services.LoteService;
 import main.services.ProdutoService;
 import main.models.Lote;
-import main.models.Produto; 
+import main.models.Produto;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Essa classe conhece a classe correta para realizar uma operação requisitada no sistema.
@@ -50,5 +52,9 @@ public class Facade {
 
 	public void removeProduto(String idProduto) {
 		this.produtoService.deleteProduto(idProduto);
+	}
+
+	public ArrayList<Produto> buscaProduto(String nomeProduto) {
+		return this.produtoService.searchProduto(nomeProduto);
 	}
 }
