@@ -28,14 +28,15 @@ public class Sistema {
 		// Lista lotes no catálogo
 		System.out.println(mercadoFacade.listaLotes());
 
-		System.out.println(mercadoFacade.buscaProduto("Leite integral"));
+		System.out.println("Leite integral: " +mercadoFacade.buscaProduto("Leite integral"));
 
-		System.out.println(mercadoFacade.buscaProduto("Leite desnatado"));
+		System.out.println("Leite desnatado: " + mercadoFacade.buscaProduto("Leite desnatado"));
 
 		mercadoFacade.removeProduto(idP1);
 
-		// Lista produtos no catálogo
 		System.out.println(mercadoFacade.listaProdutos());
+
+		System.out.println(mercadoFacade.listaLotes());
 
 	}
 }

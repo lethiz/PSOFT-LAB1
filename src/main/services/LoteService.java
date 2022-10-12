@@ -1,6 +1,9 @@
 package main.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -33,5 +36,16 @@ public class LoteService {
 		this.loteRep.addLote(lote);
 
 		return lote.getId();
+	}
+
+	public void deleteLote(String idProduto){
+		ArrayList<Lote> lotes = convertCollection();
+		ArrayList<Lote> targetLotes = lotes.stream().filter(o -> idProduto.equals(o.getProduto().getId())).collect(Collectors.toCollection(ArrayList<Lote>::new));
+		targetLotes.forEach(lote -> this.loteRep.delLot(lote.getId()));
+	}
+
+	private ArrayList<Lote> convertCollection() {
+		Collection<Lote> produtos = this.loteRep.getAll();
+		return new ArrayList<Lote>(Arrays.asList(produtos.toArray(new Lote[0])));
 	}
 }
