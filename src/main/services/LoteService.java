@@ -40,8 +40,8 @@ public class LoteService {
 
 	public void deleteLote(String idProduto){
 		ArrayList<Lote> lotes = convertCollection();
-		ArrayList<Lote> targetLotes = lotes.stream().filter(o -> idProduto.equals(o.getProduto().getId())).collect(Collectors.toCollection(ArrayList<Lote>::new));
-		targetLotes.forEach(lote -> this.loteRep.delLot(lote.getId()));
+		lotes.stream().
+				filter(o -> idProduto.equals(o.getProduto().getId())).forEach(lote -> this.loteRep.delLot(lote.getId()));
 	}
 
 	private ArrayList<Lote> convertCollection() {
