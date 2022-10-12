@@ -9,6 +9,11 @@ import main.models.Produto;
 
 import java.util.Collection;
 
+/**
+ * Essa classe conhece a classe correta para realizar uma operação requisitada no sistema.
+ * A Facade é responsável por delegar as ações às classes correspondentes.
+ * Observa-se apenas ações de repasse, sem implementação de lógica.
+ */
 public class Facade {
 	
 	// Repositórios

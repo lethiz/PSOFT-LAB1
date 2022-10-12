@@ -13,7 +13,6 @@ public class Lote {
 	private Date dataValidade; 
 	
 	public Lote(Produto produto, int quantidade) {
-		
 		this.id = UUID.randomUUID().toString();
 		this.produto = produto;
 		this.quantidade = quantidade;
