@@ -1,4 +1,5 @@
 package main.models;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Produto {
@@ -36,5 +37,18 @@ public class Produto {
 	
 	public String toString() {
 		return "Produto: " + getNome() + " - Fabricante: " + getFabricante();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Produto produto = (Produto) o;
+		return Objects.equals(id, produto.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }
