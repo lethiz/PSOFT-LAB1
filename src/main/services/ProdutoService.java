@@ -23,11 +23,15 @@ public class ProdutoService {
 	}
 	
 	public String addProduto(String jsonData) {
-		ProdutoDTO prodDTO= gson.fromJson(jsonData, ProdutoDTO.class);
+		ProdutoDTO prodDTO = gson.fromJson(jsonData, ProdutoDTO.class);
 		Produto produto = new Produto(prodDTO.getNome(), prodDTO.getFabricante(), prodDTO.getPreco());
 		
 		this.prodRep.addProduto(produto);
 		
 		return produto.getId();
+	}
+
+	public void deleteProduto(String idProduto) {
+		this.prodRep.delProd(idProduto);
 	}
 }

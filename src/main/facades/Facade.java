@@ -47,4 +47,8 @@ public class Facade {
 	public String criaLote(String data) {
 		return this.loteService.addLote(data);
 	}
+
+	public void removeProduto(String idProduto) {
+		this.produtoService.deleteProduto(idProduto);
+	}
 }

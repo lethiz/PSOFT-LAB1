@@ -28,5 +28,10 @@ public class Sistema {
 		// Lista lotes no catálogo
 		System.out.println(mercadoFacade.listaLotes());
 
+		mercadoFacade.removeProduto(idP1);
+
+		// Lista produtos no catálogo
+		System.out.println(mercadoFacade.listaProdutos());
+
 	}
 }
