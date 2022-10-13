@@ -3,10 +3,13 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import main.models.Lote;
+import main.models.Produto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.facades.Facade;
+
+import java.util.ArrayList;
 
 class LoteTest {
 
@@ -47,6 +50,14 @@ class LoteTest {
         assertEquals(1, mercadoFacade.listaLotes().size());
         mercadoFacade.removeLote(idP1, 10, "12/09/2023");
         assertEquals(0, mercadoFacade.listaLotes().size());
+    }
+
+    @Test
+    public void searchLote() {
+        ArrayList<Lote> targets = mercadoFacade.buscaLote("Leite integral");
+        assertEquals(1, targets.size());
+        targets = mercadoFacade.buscaLote("Leite desnatado");
+        assertEquals(0, targets.size());
     }
 
 }
