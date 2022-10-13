@@ -39,7 +39,7 @@ public class LoteService {
 		return lote.getId();
 	}
 
-	public void deleteLote(String idProduto){
+	public void deleteLotebyProduto(String idProduto){
 		ArrayList<Lote> lotes = convertCollection();
 		lotes.stream().
 				filter(o -> idProduto.equals(o.getProduto().getId())).
@@ -49,5 +49,15 @@ public class LoteService {
 	private ArrayList<Lote> convertCollection() {
 		Collection<Lote> produtos = this.loteRep.getAll();
 		return new ArrayList<Lote>(Arrays.asList(produtos.toArray(new Lote[0])));
+	}
+
+	public void deleteLote(String idProduto, int quantidade, String dataFabricacao) {
+		ArrayList<Lote> lotes = convertCollection();
+		lotes.stream().
+				filter(o ->
+						o.getProduto().getId().equals(idProduto)
+							&& o.getQuantidade() == quantidade
+							&& o.getDataFabricacaoString().equals(dataFabricacao)
+				).forEach(lote -> this.loteRep.delLot(lote.getId()));
 	}
 }
