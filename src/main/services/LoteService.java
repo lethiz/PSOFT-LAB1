@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
+import com.google.gson.GsonBuilder;
 import main.dto.LoteDTO;
 import main.models.Lote;
 import main.models.Produto;
@@ -17,7 +18,7 @@ public class LoteService {
 
 	private LoteRepository loteRep;
 	private ProdutoRepository produtoRep;
-	private Gson gson = new Gson();
+	private Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
 	
 	public LoteService(LoteRepository loteRep, ProdutoRepository prodRep) {
 		this.loteRep = loteRep;
@@ -32,7 +33,7 @@ public class LoteService {
 		LoteDTO loteDTO = gson.fromJson(jsonData, LoteDTO.class);
 		Produto prod = this.produtoRep.getProd(loteDTO.getIdProduto());
 		
-		Lote lote = new Lote(prod, loteDTO.getQuantidade());
+		Lote lote = new Lote(prod, loteDTO.getQuantidade(), loteDTO.getDataValidade());
 		this.loteRep.addLote(lote);
 
 		return lote.getId();
@@ -41,7 +42,8 @@ public class LoteService {
 	public void deleteLote(String idProduto){
 		ArrayList<Lote> lotes = convertCollection();
 		lotes.stream().
-				filter(o -> idProduto.equals(o.getProduto().getId())).forEach(lote -> this.loteRep.delLot(lote.getId()));
+				filter(o -> idProduto.equals(o.getProduto().getId())).
+				forEach(lote -> this.loteRep.delLot(lote.getId()));
 	}
 
 	private ArrayList<Lote> convertCollection() {
