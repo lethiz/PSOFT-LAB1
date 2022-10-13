@@ -60,4 +60,13 @@ public class LoteService {
 							&& o.getDataFabricacaoString().equals(dataFabricacao)
 				).forEach(lote -> this.loteRep.delLot(lote.getId()));
 	}
+
+	public ArrayList<Lote> searchLotebyProduto(String nomeProduto) {
+		ArrayList<Lote> lotes = convertCollection();
+		return lotes.stream().
+				filter(o ->
+						o.getProduto().getNome().equals(nomeProduto)
+								&& o.getQuantidade() > 0
+				).collect(Collectors.toCollection(ArrayList<Lote>::new));
+	}
 }

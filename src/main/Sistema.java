@@ -27,7 +27,6 @@ public class Sistema {
 
 		String jsonL2 = "{\"idProduto\":\"" + idP2 + "\", \"quantidade\":\"15\", \"dataFabricacao\":15-09-2023}";
 
-
 		// Adicionando lotes ao catálogo
 		String idL1 = mercadoFacade.criaLote(jsonL1);
 
@@ -43,7 +42,11 @@ public class Sistema {
 
 		System.out.println("Leite desnatado: " + mercadoFacade.buscaProduto("Leite desnatado"));
 
-		System.out.println("Leite de Soja: " + mercadoFacade.buscaProduto("Leite de Soja"));
+		System.out.println("Leite de Soja: " + mercadoFacade.buscaLote("Leite de Soja"));
+
+		System.out.println("LOTES! Leite integral: " + mercadoFacade.buscaLote("Leite integral"));
+
+		System.out.println("LOTES! Leite de Soja: " + mercadoFacade.buscaLote("Leite de Soja"));
 
 		mercadoFacade.removeProduto(idP1);
 
