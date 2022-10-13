@@ -19,11 +19,11 @@ class LoteTest {
     @BeforeEach
     public void createLote() {
         this.idP1 = mercadoFacade.criaProduto(jsonP1);
-        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataValidade\":12-09-2023}";
+        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         this.idL1 = mercadoFacade.criaLote(jsonL1);
     }
     @Test
-    public void verifyLoteDataValidade() {
+    public void verifyLoteDataFabricacao() {
         assertEquals(1, mercadoFacade.listaLotes().size());
         Lote lotezinho = mercadoFacade.listaLotes().toArray(new Lote[0])[0];
         assertEquals(lotezinho.getDataFabricacaoString(),  "12/09/2023");
@@ -38,6 +38,14 @@ class LoteTest {
     public void verifyProdutoDeletado() {
         assertEquals(1, mercadoFacade.listaLotes().size());
         mercadoFacade.removeProduto(idP1);
+        assertEquals(0, mercadoFacade.listaLotes().size());
+    }
+
+    @Test
+    public void verifyLoteDeletado() {
+        mercadoFacade.removeLote(idP1, 10, "15/09/2023");
+        assertEquals(1, mercadoFacade.listaLotes().size());
+        mercadoFacade.removeLote(idP1, 10, "12/09/2023");
         assertEquals(0, mercadoFacade.listaLotes().size());
     }
 
