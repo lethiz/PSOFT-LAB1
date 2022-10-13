@@ -11,12 +11,12 @@ public class LoteDTO {
 	
 	private int quantidade;
 
-	private Date dataValidade;
+	private Date dataFabricacao;
 
-	public LoteDTO(String idProduto, int quantidade, Date dataValidade) {
+	public LoteDTO(String idProduto, int quantidade, Date dataFabricacao) {
 		this.idProduto = idProduto;
 		this.quantidade = quantidade;
-		this.dataValidade = dataValidade;
+		this.dataFabricacao = dataFabricacao;
 	}
 
 	public String getIdProduto() {
@@ -27,8 +27,8 @@ public class LoteDTO {
 		return quantidade;
 	}
 
-	public Date getDataValidade() {
-		return dataValidade;
+	public Date getDataFabricacao() {
+		return dataFabricacao;
 	}
 
 }

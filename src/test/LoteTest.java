@@ -26,7 +26,7 @@ class LoteTest {
     public void verifyLoteDataValidade() {
         assertEquals(1, mercadoFacade.listaLotes().size());
         Lote lotezinho = mercadoFacade.listaLotes().toArray(new Lote[0])[0];
-        assertEquals(lotezinho.getDataValidadeString(),  "12/09/2023");
+        assertEquals(lotezinho.getDataFabricacaoString(),  "12/09/2023");
     }
 
     @Test
@@ -35,9 +35,10 @@ class LoteTest {
     }
 
     @Test
-    public void verifyLoteDeletado() {
+    public void verifyProdutoDeletado() {
         assertEquals(1, mercadoFacade.listaLotes().size());
         mercadoFacade.removeProduto(idP1);
         assertEquals(0, mercadoFacade.listaLotes().size());
     }
+
 }

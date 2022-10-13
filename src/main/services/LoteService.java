@@ -33,7 +33,7 @@ public class LoteService {
 		LoteDTO loteDTO = gson.fromJson(jsonData, LoteDTO.class);
 		Produto prod = this.produtoRep.getProd(loteDTO.getIdProduto());
 		
-		Lote lote = new Lote(prod, loteDTO.getQuantidade(), loteDTO.getDataValidade());
+		Lote lote = new Lote(prod, loteDTO.getQuantidade(), loteDTO.getDataFabricacao());
 		this.loteRep.addLote(lote);
 
 		return lote.getId();

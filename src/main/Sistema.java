@@ -17,7 +17,7 @@ public class Sistema {
 		// Adicionando produto ao catálogo
 		String idP1 = mercadoFacade.criaProduto(jsonP1);
 
-		String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataValidade\":12-09-2023}";
+		String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
 
 		// Adicionando lote ao catálogo
 		String idL1 = mercadoFacade.criaLote(jsonL1);
