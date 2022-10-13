@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import main.models.Lote;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +19,14 @@ class LoteTest {
     @BeforeEach
     public void createLote() {
         this.idP1 = mercadoFacade.criaProduto(jsonP1);
-        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":10}";
+        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataValidade\":12-09-2023}";
         this.idL1 = mercadoFacade.criaLote(jsonL1);
+    }
+    @Test
+    public void verifyLoteDataValidade() {
+        assertEquals(1, mercadoFacade.listaLotes().size());
+        Lote lotezinho = mercadoFacade.listaLotes().toArray(new Lote[0])[0];
+        assertEquals(lotezinho.getDataValidadeString(),  "12/09/2023");
     }
 
     @Test
