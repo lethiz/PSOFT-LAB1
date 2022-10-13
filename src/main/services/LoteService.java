@@ -39,7 +39,7 @@ public class LoteService {
 		return lote.getId();
 	}
 
-	public void deleteLote(String idProduto){
+	public void deleteLotebyProduto(String idProduto){
 		ArrayList<Lote> lotes = convertCollection();
 		lotes.stream().
 				filter(o -> idProduto.equals(o.getProduto().getId())).
