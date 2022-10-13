@@ -40,7 +40,9 @@ public class ProdutoService {
 
     public ArrayList<Produto> searchProduto(String nomeProduto) {
 		ArrayList<Produto> produtos = convertCollection();
-		return produtos.stream().filter(o -> nomeProduto.equals(o.getNome())).collect(Collectors.toCollection(ArrayList<Produto>::new));
+		return produtos.stream().
+				filter(o -> (nomeProduto.toLowerCase()).equals(o.getNome().toLowerCase())).
+				collect(Collectors.toCollection(ArrayList<Produto>::new));
     }
 
 	private ArrayList<Produto> convertCollection() {

@@ -54,9 +54,11 @@ class LoteTest {
 
     @Test
     public void searchLote() {
-        ArrayList<Lote> targets = mercadoFacade.buscaLote("Leite integral");
+        ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("Leite integral");
         assertEquals(1, targets.size());
-        targets = mercadoFacade.buscaLote("Leite desnatado");
+        targets = mercadoFacade.buscaProdutocomLote("leite integral");
+        assertEquals(1, targets.size());
+        targets = mercadoFacade.buscaProdutocomLote("Leite desnatado");
         assertEquals(0, targets.size());
     }
 

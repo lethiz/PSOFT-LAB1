@@ -63,7 +63,7 @@ public class Facade {
 	}
 
 
-	public ArrayList<Lote> buscaLote(String nomeProduto) {
-		return this.loteService.searchLotebyProduto(nomeProduto);
+	public ArrayList<Produto> buscaProdutocomLote(String nomeProduto) {
+		return this.loteService.searchProdutowithLote(nomeProduto);
 	}
 }

@@ -42,11 +42,11 @@ public class Sistema {
 
 		System.out.println("Leite desnatado: " + mercadoFacade.buscaProduto("Leite desnatado"));
 
-		System.out.println("Leite de Soja: " + mercadoFacade.buscaLote("Leite de Soja"));
+		System.out.println("Leite de Soja: " + mercadoFacade.buscaProduto("Leite de Soja"));
 
-		System.out.println("LOTES! Leite integral: " + mercadoFacade.buscaLote("Leite integral"));
+		System.out.println("LOTES! Leite integral: " + mercadoFacade.buscaProdutocomLote("Leite integral"));
 
-		System.out.println("LOTES! Leite de Soja: " + mercadoFacade.buscaLote("Leite de Soja"));
+		System.out.println("LOTES! Leite de Soja: " + mercadoFacade.buscaProdutocomLote("Leite de Soja"));
 
 		mercadoFacade.removeProduto(idP1);
 

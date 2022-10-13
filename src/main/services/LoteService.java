@@ -61,12 +61,12 @@ public class LoteService {
 				).forEach(lote -> this.loteRep.delLot(lote.getId()));
 	}
 
-	public ArrayList<Lote> searchLotebyProduto(String nomeProduto) {
+	public ArrayList<Produto> searchProdutowithLote(String nomeProduto) {
 		ArrayList<Lote> lotes = convertCollection();
 		return lotes.stream().
 				filter(o ->
-						o.getProduto().getNome().equals(nomeProduto)
+						(o.getProduto().getNome().toLowerCase()).equals(nomeProduto.toLowerCase())
 								&& o.getQuantidade() > 0
-				).collect(Collectors.toCollection(ArrayList<Lote>::new));
+				).map(Lote::getProduto).collect(Collectors.toCollection(ArrayList<Produto>::new));
 	}
 }
