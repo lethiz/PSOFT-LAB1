@@ -15,14 +15,14 @@ public class ProdutoDTO {
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public String getFabricante() {
-		return fabricante;
+		return this.fabricante;
 	}
 	
 	public double getPreco() {
-		return preco;
+		return this.preco;
 	}
 }

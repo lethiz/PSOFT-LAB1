@@ -14,36 +14,41 @@ public class Lote {
 
     private Date dataFabricacao;
 
+    private String stringDataFabricacao;
+
     public Lote(Produto produto, int quantidade, Date dataFabricacao) {
         this.id = UUID.randomUUID().toString();
         this.produto = produto;
         this.quantidade = quantidade;
         this.dataFabricacao = dataFabricacao;
+        this.stringDataFabricacao = defineDataFabricacaoString();
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public Produto getProduto() {
-        return produto;
+        return this.produto;
     }
 
     public int getQuantidade() {
-        return quantidade;
+        return this.quantidade;
     }
 
     public Date getDataFabricacao() {
-        return dataFabricacao;
+        return this.dataFabricacao;
     }
+
+    public String getDataFabricacaoString(){return this.stringDataFabricacao;}
 
     public String toString() {
         return "Lote ID: " + getId() + " - Produto: " + getProduto().getNome()
                 + " - " + getQuantidade() + " itens"
-                + " - " + "Validade: " + getDataFabricacaoString();
+                + " - " + "Validade: " + this.stringDataFabricacao;
     }
 
-    public String getDataFabricacaoString() {
+    private String defineDataFabricacaoString() {
         Date data = getDataFabricacao();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(data);

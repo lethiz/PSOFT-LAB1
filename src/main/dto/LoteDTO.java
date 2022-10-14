@@ -1,8 +1,5 @@
 package main.dto;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LoteDTO {
@@ -20,15 +17,15 @@ public class LoteDTO {
 	}
 
 	public String getIdProduto() {
-		return idProduto;
+		return this.idProduto;
 	}
 
 	public int getQuantidade() {
-		return quantidade;
+		return this.quantidade;
 	}
 
 	public Date getDataFabricacao() {
-		return dataFabricacao;
+		return this.dataFabricacao;
 	}
 
 }
