@@ -46,8 +46,11 @@ class LoteTest {
 
     @Test
     public void verifyLoteDeletado() {
+        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        String idL2 = mercadoFacade.criaLote(jsonL1);
+        assertEquals(2, mercadoFacade.listaLotes().size());
         mercadoFacade.removeLote(idP1, 10, "15/09/2023");
-        assertEquals(1, mercadoFacade.listaLotes().size());
+        assertEquals(2, mercadoFacade.listaLotes().size());
         mercadoFacade.removeLote(idP1, 10, "12/09/2023");
         assertEquals(0, mercadoFacade.listaLotes().size());
     }
@@ -56,9 +59,15 @@ class LoteTest {
     public void searchLote() {
         ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("Leite integral");
         assertEquals(1, targets.size());
-        targets = mercadoFacade.buscaProdutocomLote("leite integral");
-        assertEquals(1, targets.size());
         targets = mercadoFacade.buscaProdutocomLote("Leite desnatado");
+        assertEquals(0, targets.size());
+    }
+
+    @Test
+    public void searchLoteVariacao() {
+        ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("leiTe inTegral");
+        assertEquals(1, targets.size());
+        targets = mercadoFacade.buscaProdutocomLote("leiTe desNatado");
         assertEquals(0, targets.size());
     }
 
