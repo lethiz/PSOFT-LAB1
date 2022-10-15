@@ -14,28 +14,32 @@ import main.dto.ProdutoDTO;
 
 public class ProdutoService {
 	
-	private ProdutoRepository prodRep;
+	private ProdutoRepository produtoRepository;
+
+	private LoteService loteService;
 	private Gson gson = new Gson();
 	
-	public ProdutoService(LoteRepository loteRep, ProdutoRepository prodRep) {
-		this.prodRep = prodRep;
+	public ProdutoService(LoteService loteService, ProdutoRepository produtoRepository) {
+		this.produtoRepository = produtoRepository;
+		this.loteService = loteService;
 	}
 	
 	public Collection<Produto> listaProdutos() {
-		return this.prodRep.getAll();
+		return this.produtoRepository.getAll();
 	}
 	
 	public String addProduto(String jsonData) {
 		ProdutoDTO prodDTO = gson.fromJson(jsonData, ProdutoDTO.class);
 		Produto produto = new Produto(prodDTO.getNome(), prodDTO.getFabricante(), prodDTO.getPreco());
 		
-		this.prodRep.addProduto(produto);
+		this.produtoRepository.addProduto(produto);
 		
 		return produto.getId();
 	}
 
 	public void deleteProduto(String idProduto) {
-		this.prodRep.delProd(idProduto);
+		this.produtoRepository.delProd(idProduto);
+		this.loteService.deleteLotebyProduto(idProduto);
 	}
 
     public ArrayList<Produto> searchProduto(String nomeProduto) {
@@ -46,7 +50,7 @@ public class ProdutoService {
     }
 
 	private ArrayList<Produto> convertCollection() {
-		Collection<Produto> produtos = this.prodRep.getAll();
+		Collection<Produto> produtos = this.produtoRepository.getAll();
 		return new ArrayList<Produto>(Arrays.asList(produtos.toArray(new Produto[0])));
 	}
 }

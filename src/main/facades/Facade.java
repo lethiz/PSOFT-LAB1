@@ -18,8 +18,8 @@ import java.util.Collection;
 public class Facade {
 	
 	// Repositórios
-	private ProdutoRepository produtoRep;
-	private LoteRepository loteRep;
+	private ProdutoRepository produtoRepository;
+	private LoteRepository loteRepository;
 	
 	// Serviços
 	private ProdutoService produtoService; 
@@ -27,10 +27,10 @@ public class Facade {
 	
 	
 	public Facade() {
-		this.produtoRep = new ProdutoRepository();
-		this.loteRep = new LoteRepository();
-		this.produtoService = new ProdutoService(loteRep, produtoRep);
-		this.loteService = new LoteService(loteRep, produtoRep);
+		this.produtoRepository = new ProdutoRepository();
+		this.loteRepository = new LoteRepository();
+		this.loteService = new LoteService(loteRepository, produtoRepository);
+		this.produtoService = new ProdutoService(loteService, produtoRepository);
 	}
 	
 	public Collection<Produto> listaProdutos() {
@@ -51,7 +51,6 @@ public class Facade {
 
 	public void removeProduto(String idProduto) {
 		this.produtoService.deleteProduto(idProduto);
-		this.loteService.deleteLotebyProduto(idProduto);
 	}
 
 	public void removeLote(String idProduto, int quantidade, String dataFabricacao) {
@@ -62,8 +61,8 @@ public class Facade {
 		return this.produtoService.searchProduto(nomeProduto);
 	}
 
-
 	public ArrayList<Produto> buscaProdutocomLote(String nomeProduto) {
 		return this.loteService.searchProdutowithLote(nomeProduto);
 	}
+
 }
