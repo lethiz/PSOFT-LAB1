@@ -25,18 +25,21 @@ class LoteTest {
         String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         this.idL1 = mercadoFacade.criaLote(jsonL1);
     }
-    @Test
-    public void verifyLoteDataFabricacao() {
-        assertEquals(1, mercadoFacade.listaLotes().size());
-        Lote lotezinho = mercadoFacade.listaLotes().toArray(new Lote[0])[0];
-        assertEquals(lotezinho.getDataFabricacaoString(),  "12/09/2023");
-    }
 
     @Test
     public void verifyLoteAdicionado() {
         assertEquals(1, mercadoFacade.listaLotes().size());
     }
 
+    @Test
+    public void verifyLoteDados() {
+        assertEquals(1, mercadoFacade.listaLotes().size());
+        Lote lotezinho = mercadoFacade.listaLotes().toArray(new Lote[0])[0];
+        Produto produtinho = mercadoFacade.buscaProduto("Leite integral").get(0);
+        assertEquals(lotezinho.getQuantidade(),  10);
+        assertEquals(lotezinho.getProduto(),  produtinho);
+        assertEquals(lotezinho.getDataFabricacaoString(),  "12/09/2023");
+    }
     @Test
     public void verifyProdutoDeletado() {
         assertEquals(1, mercadoFacade.listaLotes().size());
@@ -49,10 +52,35 @@ class LoteTest {
         String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         String idL2 = mercadoFacade.criaLote(jsonL1);
         assertEquals(2, mercadoFacade.listaLotes().size());
-        mercadoFacade.removeLote(idP1, 10, "15/09/2023");
-        assertEquals(2, mercadoFacade.listaLotes().size());
         mercadoFacade.removeLote(idP1, 10, "12/09/2023");
         assertEquals(0, mercadoFacade.listaLotes().size());
+    }
+
+    @Test
+    public void verifyLoteDeletadoDataIncorreta() {
+        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        String idL2 = mercadoFacade.criaLote(jsonL1);
+        assertEquals(2, mercadoFacade.listaLotes().size());
+        mercadoFacade.removeLote(idP1, 10, "15/09/2023");
+        assertEquals(2, mercadoFacade.listaLotes().size());
+    }
+
+    @Test
+    public void verifyLoteDeletadoQuantIncorreta() {
+        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        String idL2 = mercadoFacade.criaLote(jsonL1);
+        assertEquals(2, mercadoFacade.listaLotes().size());
+        mercadoFacade.removeLote(idP1, 11, "12/09/2023");
+        assertEquals(2, mercadoFacade.listaLotes().size());
+    }
+
+    @Test
+    public void verifyLoteIdProdutoIncorreto() {
+        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        String idL2 = mercadoFacade.criaLote(jsonL1);
+        assertEquals(2, mercadoFacade.listaLotes().size());
+        mercadoFacade.removeLote("ID INCORRETO", 10, "12/09/2023");
+        assertEquals(2, mercadoFacade.listaLotes().size());
     }
 
     @Test
@@ -67,6 +95,16 @@ class LoteTest {
     public void searchLoteVariacao() {
         ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("leiTe inTegral");
         assertEquals(1, targets.size());
+        targets = mercadoFacade.buscaProdutocomLote("leiTe desNatado");
+        assertEquals(0, targets.size());
+    }
+
+    @Test
+    public void searchLoteRepeticao() {
+        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        String idL2 = mercadoFacade.criaLote(jsonL1);
+        ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("leiTe inTegral");
+        assertEquals(2, targets.size());
         targets = mercadoFacade.buscaProdutocomLote("leiTe desNatado");
         assertEquals(0, targets.size());
     }

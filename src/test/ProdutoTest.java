@@ -43,6 +43,17 @@ class ProdutoTest {
 	public void verifyProdutoDeletadoExisteComLote() {
 		String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
 		mercadoFacade.criaLote(jsonL1);
+		assertEquals(1, mercadoFacade.listaProdutos().size());
+		assertEquals(1, mercadoFacade.listaLotes().size());
+		mercadoFacade.removeProduto(idP1);
+		assertEquals(0, mercadoFacade.listaProdutos().size());
+		assertEquals(0, mercadoFacade.listaLotes().size());
+	}
+
+	@Test
+	public void verifyProdutoDeletadoExisteComLoteRepetido() {
+		String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+		mercadoFacade.criaLote(jsonL1);
 		mercadoFacade.criaLote(jsonL1);
 		assertEquals(1, mercadoFacade.listaProdutos().size());
 		assertEquals(2, mercadoFacade.listaLotes().size());
@@ -70,6 +81,15 @@ class ProdutoTest {
 		assertNotEquals(nomeProduto, "leitE inTegral");
 		targets = mercadoFacade.buscaProduto("leitE desNatado");
 		assertEquals(0, targets.size());
+	}
+
+	@Test
+	public void searchProdutoRepeticao() {
+		mercadoFacade.criaProduto(jsonP1);
+		ArrayList<Produto> targets = mercadoFacade.buscaProduto("Leite integral");
+		assertEquals(2, targets.size());
+		assertEquals(targets.get(0).getNome(), "Leite integral");
+		assertEquals(targets.get(1).getNome(), "Leite integral");
 	}
 
 }
