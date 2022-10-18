@@ -32,6 +32,115 @@ class LoteTest {
     }
 
     @Test
+    public void createLoteSemProduto() {
+        String jsonL2 = "{\"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteProdutoNaoExiste() {
+        String jsonL2 =  "{\"idProduto\":\"ABCDE\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteSemQuantidade() {
+        String jsonL2 = "{\"idProduto\":\"" + idP1 + "\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteQuantidadeNula() {
+        String jsonL2 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"0\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteQuantidadeNegativa() {
+        String jsonL2 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"-1\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteSemDatadeValidade() {
+        String jsonL2 ="{\"idProduto\":\"" + idP1 + "\", \"quantidade\": 10}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteDatadeValidadeErrada() {
+        String jsonL2 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":ABCDE}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteDatadeValidadeVazia() {
+        String jsonL2 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\": }";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteLoteNaoExiste() {
+        try{
+            mercadoFacade.removeLote("ABCDE");
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteLoteIdNull() {
+        try{
+            mercadoFacade.removeLote(null);
+
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+
+    @Test
     public void verifyLoteDados() {
         assertEquals(1, mercadoFacade.listaLotes().size());
         Lote lotezinho = mercadoFacade.listaLotes().toArray(new Lote[0])[0];
