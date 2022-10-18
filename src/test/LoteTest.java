@@ -32,7 +32,7 @@ class LoteTest {
     }
 
     @Test
-    public void createLoteProdutoNull() {
+    public void createLoteIdProdutoNull() {
         String jsonL2 = "{\"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         try{
             mercadoFacade.criaLote(jsonL2);
@@ -42,8 +42,28 @@ class LoteTest {
     }
 
     @Test
-    public void createLoteProdutoNaoExiste() {
+    public void createLoteIdProdutoNaoExiste() {
         String jsonL2 =  "{\"idProduto\":\"ABCDE\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteIdProdutoVazio() {
+        String jsonL2 =  "{\"idProduto\":\"\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteIdProdutoBranco() {
+        String jsonL2 =  "{\"idProduto\":\"     \", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         try{
             mercadoFacade.criaLote(jsonL2);
         } catch(Exception error){
@@ -214,6 +234,5 @@ class LoteTest {
         assertTrue(targets.get(1).getNome().toLowerCase().contains("leite"));
         assertTrue(targets.get(2).getNome().toLowerCase().contains("leite"));
     }
-
 
 }

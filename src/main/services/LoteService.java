@@ -33,13 +33,13 @@ public class LoteService {
 		LoteDTO loteDTO = gson.fromJson(jsonData, LoteDTO.class);
 		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() >= 0){
 			if(loteDTO.getDataFabricacao() != null){
+				if(loteDTO.getIdProduto() != null && !loteDTO.getIdProduto().isEmpty() && !loteDTO.getIdProduto().isBlank()){
 				String idProduto = loteDTO.getIdProduto();
-				if(idProduto != null ){
-					if(produtoRep.existProd(idProduto)){
-						Produto produto = this.produtoRep.getProd(loteDTO.getIdProduto());
-						Lote lote = new Lote(produto, loteDTO.getQuantidade(), loteDTO.getDataFabricacao());
-						this.loteRep.addLote(lote);
-						return lote.getId();
+				if(produtoRep.existProd(idProduto)){
+					Produto produto = this.produtoRep.getProd(loteDTO.getIdProduto());
+					Lote lote = new Lote(produto, loteDTO.getQuantidade(), loteDTO.getDataFabricacao());
+					this.loteRep.addLote(lote);
+					return lote.getId();
 					} else throw new IllegalArgumentException("Parâmatro errado: produto não existe.");
 				} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do produto.");
 			} else throw new IllegalArgumentException("Parâmatro errado: adicione data de fabricação.");
