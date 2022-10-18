@@ -86,10 +86,26 @@ class ProdutoTest {
 	@Test
 	public void searchProdutoRepeticao() {
 		mercadoFacade.criaProduto(jsonP1);
+		String jsonP2 = "{\"nome\":\"Leite de Soja\", \"fabricante\":\"Parmalat\", \"preco\":10.5}";
+		mercadoFacade.criaProduto(jsonP2);
 		ArrayList<Produto> targets = mercadoFacade.buscaProduto("Leite integral");
 		assertEquals(2, targets.size());
 		assertEquals(targets.get(0).getNome(), "Leite integral");
 		assertEquals(targets.get(1).getNome(), "Leite integral");
 	}
+
+	@Test
+	public void searchProdutoVariados() {
+		mercadoFacade.criaProduto(jsonP1);
+		String jsonP2 = "{\"nome\":\"Leite de Soja\", \"fabricante\":\"Parmalat\", \"preco\":10.5}";
+		mercadoFacade.criaProduto(jsonP2);
+		ArrayList<Produto> targets = mercadoFacade.buscaProduto("LeiTe");
+		assertEquals(3, targets.size());
+		assertTrue(targets.get(0).getNome().toLowerCase().contains("leite"));
+		assertTrue(targets.get(1).getNome().toLowerCase().contains("leite"));
+		assertTrue(targets.get(2).getNome().toLowerCase().contains("leite"));
+	}
+
+
 
 }
