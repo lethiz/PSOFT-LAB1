@@ -6,11 +6,11 @@ public class LoteDTO {
 	
 	private String idProduto;
 	
-	private int quantidade;
+	private Integer quantidade;
 
 	private Date dataFabricacao;
 
-	public LoteDTO(String idProduto, int quantidade, Date dataFabricacao) {
+	public LoteDTO(String idProduto, Integer quantidade, Date dataFabricacao) {
 		this.idProduto = idProduto;
 		this.quantidade = quantidade;
 		this.dataFabricacao = dataFabricacao;
@@ -20,7 +20,7 @@ public class LoteDTO {
 		return this.idProduto;
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return this.quantidade;
 	}
 
