@@ -31,7 +31,7 @@ public class LoteService {
 	
 	public String addLote(String jsonData) {
 		LoteDTO loteDTO = gson.fromJson(jsonData, LoteDTO.class);
-		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() > 0){
+		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() >= 0){
 			if(loteDTO.getDataFabricacao() != null){
 				String idProduto = loteDTO.getIdProduto();
 				if(idProduto != null ){
@@ -70,7 +70,7 @@ public class LoteService {
 							(lote.getProduto().getNome().toLowerCase()).contains(nomeProduto.toLowerCase())
 									&& lote.getQuantidade() > 0
 					).map(Lote::getProduto).collect(Collectors.toCollection(ArrayList<Produto>::new));
-		} else throw new IllegalArgumentException("Parâmatro errado: adicione o nomedo produto.");
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione o nome do produto.");
 
 	}
 
