@@ -47,30 +47,35 @@ public class LoteService {
 
 	}
 
-	public void deleteLotebyProduto(String idProduto){
-		ArrayList<Lote> lotes = convertCollection();
-		lotes.stream().
-				filter(o -> idProduto.equals(o.getProduto().getId())).
-				forEach(lote -> this.loteRep.delLot(lote.getId()));
-	}
-
-	private ArrayList<Lote> convertCollection() {
-		Collection<Lote> lotes = this.loteRep.getAll();
-		return new ArrayList<Lote>(Arrays.asList(lotes.toArray(new Lote[0])));
-	}
-
 	public void deleteLote(String idLote) {
 		if(this.loteRep.existLote(idLote)){
 			this.loteRep.delLot(idLote);
 		} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do lote.");
 	}
 
+	protected void deleteLotebyProduto(String idProduto){
+		if(idProduto != null && !idProduto.isEmpty() && !idProduto.isBlank()){
+			ArrayList<Lote> lotes = convertCollection();
+			lotes.stream().
+					filter(o -> idProduto.equals(o.getProduto().getId())).
+					forEach(lote -> this.loteRep.delLot(lote.getId()));
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do produto.");
+	}
+
 	public ArrayList<Produto> searchProdutowithLote(String nomeProduto) {
-		ArrayList<Lote> lotes = convertCollection();
-		return lotes.stream().
-				filter(lote ->
-						(lote.getProduto().getNome().toLowerCase()).contains(nomeProduto.toLowerCase())
-								&& lote.getQuantidade() > 0
-				).map(Lote::getProduto).collect(Collectors.toCollection(ArrayList<Produto>::new));
+		if(nomeProduto != null && !nomeProduto.isEmpty() && !nomeProduto.isBlank()){
+			ArrayList<Lote> lotes = convertCollection();
+			return lotes.stream().
+					filter(lote ->
+							(lote.getProduto().getNome().toLowerCase()).contains(nomeProduto.toLowerCase())
+									&& lote.getQuantidade() > 0
+					).map(Lote::getProduto).collect(Collectors.toCollection(ArrayList<Produto>::new));
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione o nomedo produto.");
+
+	}
+
+	private ArrayList<Lote> convertCollection() {
+		Collection<Lote> lotes = this.loteRep.getAll();
+		return new ArrayList<Lote>(Arrays.asList(lotes.toArray(new Lote[0])));
 	}
 }
