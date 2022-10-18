@@ -93,16 +93,6 @@ class LoteTest {
     }
 
     @Test
-    public void createLoteQuantidadeZero() {
-        String jsonL2 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"0\", \"dataFabricacao\":12-09-2023}";
-        try{
-            mercadoFacade.criaLote(jsonL2);
-        } catch(Exception error){
-            error.printStackTrace();
-        }
-    }
-
-    @Test
     public void createLoteDatadeValidadeNull() {
         String jsonL2 ="{\"idProduto\":\"" + idP1 + "\", \"quantidade\": 10}";
         try{

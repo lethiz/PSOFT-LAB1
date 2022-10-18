@@ -32,7 +32,7 @@ public class LoteService {
 	
 	public String addLote(String jsonData) {
 		LoteDTO loteDTO = gson.fromJson(jsonData, LoteDTO.class);
-		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() >= 1){
+		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() >= 0){
 			if(loteDTO.getDataFabricacao() != null){
 				if(loteDTO.getIdProduto() != null && !loteDTO.getIdProduto().isEmpty() && !loteDTO.getIdProduto().isBlank()){
 				String idProduto = loteDTO.getIdProduto();
