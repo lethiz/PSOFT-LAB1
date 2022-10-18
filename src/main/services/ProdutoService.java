@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
+import main.models.Lote;
 import main.models.Produto;
 import main.repositories.LoteRepository;
 import main.repositories.ProdutoRepository;
@@ -29,24 +30,32 @@ public class ProdutoService {
 	}
 	
 	public String addProduto(String jsonData) {
-		ProdutoDTO prodDTO = gson.fromJson(jsonData, ProdutoDTO.class);
-		Produto produto = new Produto(prodDTO.getNome(), prodDTO.getFabricante(), prodDTO.getPreco());
-		
-		this.produtoRepository.addProduto(produto);
-		
-		return produto.getId();
+		ProdutoDTO produtoDTO = gson.fromJson(jsonData, ProdutoDTO.class);
+		if (produtoDTO.getNome() != null && !produtoDTO.getNome().isBlank() && !produtoDTO.getNome().isEmpty()){
+			if(produtoDTO.getFabricante() != null && !produtoDTO.getFabricante().isBlank() && !produtoDTO.getFabricante().isEmpty()){
+				if(produtoDTO.getPreco() != null && produtoDTO.getPreco() >= 0){
+					Produto produto = new Produto(produtoDTO.getNome(), produtoDTO.getFabricante(), produtoDTO.getPreco());
+					this.produtoRepository.addProduto(produto);
+					return produto.getId();
+				} else throw new IllegalArgumentException("Parâmatro errado: adicione um preço válido.");
+			} else throw new IllegalArgumentException("Parâmatro errado: adicione um fabricante válido.");
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione um nome válido.");
 	}
 
 	public void deleteProduto(String idProduto) {
-		this.produtoRepository.delProd(idProduto);
-		this.loteService.deleteLotebyProduto(idProduto);
+		if (this.produtoRepository.existProd(idProduto)){
+			this.produtoRepository.delProd(idProduto);
+			this.loteService.deleteLotebyProduto(idProduto);
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do produto.");
 	}
 
     public ArrayList<Produto> searchProduto(String nomeProduto) {
-		ArrayList<Produto> produtos = convertCollection();
-		return produtos.stream().
-				filter(produto -> (produto.getNome().toLowerCase()).contains(nomeProduto.toLowerCase())).
-				collect(Collectors.toCollection(ArrayList<Produto>::new));
+		if(nomeProduto != null && !nomeProduto.isEmpty() && !nomeProduto.isBlank()){
+			ArrayList<Produto> listProdutos = convertCollection();
+			return listProdutos.stream().
+					filter(produto -> (produto.getNome().toLowerCase()).contains(nomeProduto.toLowerCase())).
+					collect(Collectors.toCollection(ArrayList<Produto>::new));
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione o nome do produto.");
     }
 
 	private ArrayList<Produto> convertCollection() {

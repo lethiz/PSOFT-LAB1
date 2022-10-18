@@ -29,6 +29,10 @@ public class ProdutoRepository {
 	public void editProd(Produto prod) {
 		this.produtos.replace(prod.getId(), prod);
 	}
+
+	public boolean existProd(String id){
+		return this.produtos.containsKey(id);
+	}
 	
 	public String addProduto(Produto prod) {
 		this.produtos.put(prod.getId(), prod);
