@@ -10,9 +10,9 @@ public class Produto {
 	
 	private String fabricante;
 	
-	private double preco;
+	private Double preco;
 
-	public Produto(String nome, String fabricante, double preco) {
+	public Produto(String nome, String fabricante, Double preco) {
 		this.id = UUID.randomUUID().toString();
 		this.nome = nome;
 		this.fabricante = fabricante;
@@ -31,7 +31,7 @@ public class Produto {
 		return fabricante;
 	}
 	
-	public double getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
 	

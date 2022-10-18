@@ -6,9 +6,9 @@ public class ProdutoDTO {
 	
 	private String fabricante;
 	
-	private double preco;
+	private Double preco;
 
-	public ProdutoDTO(String nome, String fabricante, double preco) {
+	public ProdutoDTO(String nome, String fabricante, Double preco) {
 		this.nome = nome;
 		this.fabricante = fabricante;
 		this.preco = preco;
@@ -22,7 +22,7 @@ public class ProdutoDTO {
 		return this.fabricante;
 	}
 	
-	public double getPreco() {
+	public Double getPreco() {
 		return this.preco;
 	}
 }
