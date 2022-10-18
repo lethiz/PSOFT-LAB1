@@ -28,15 +28,134 @@ class ProdutoTest {
 	}
 
 	@Test
-	public void verifyProdutoDeletadoExiste() {
-		mercadoFacade.removeProduto(idP1);
-		assertEquals(0, mercadoFacade.listaProdutos().size());
+	public void createProdutoNomeNull() {
+		String jsonP2 = "{\"fabricante\":\"Parmalat\", \"preco\":10.5}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
 	}
 
 	@Test
-	public void verifyProdutoDeletadoNaoExiste() {
-		mercadoFacade.removeProduto("id de produto que não existe");
-		assertEquals(1, mercadoFacade.listaProdutos().size());
+	public void createProdutoNomeVazio() {
+		String jsonP2 = "{\"nome\":\"     \", \"fabricante\":\"Parmalat\", \"preco\":10.5}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void createProdutoNomeBranco() {
+		String jsonP2 = "{\"nome\":\"\", \"fabricante\":\"Parmalat\", \"preco\":10.5}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void createProdutoFabricanteNull() {
+		String jsonP2 = "{\"fabricante\":\"Parmalat\", \"preco\":10.5}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void createProdutoFabricanteVazio() {
+		String jsonP2 = "{\"nome\":\"\", \"fabricante\":\"Parmalat\", \"preco\":10.5}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void createProdutoFabricanteBranco() {
+		String jsonP2 = "{\"nome\":\"    \", \" \":\"Parmalat\", \"preco\":10.5}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void createProdutoPrecoNull() {
+		String jsonP2 = "{\"nome\":\"Leite integral\", \"fabricante\":\"Parmalat\"}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void createProdutoPrecoNegativo() {
+		String jsonP2 = "{\"nome\":\"Leite integral\", \"fabricante\":\"Parmalat\", \"preco\":-10.5}";
+		try{
+			mercadoFacade.criaProduto(jsonP2);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void deleteProdutoIdNull() {
+		try{
+			mercadoFacade.removeProduto(null);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void deleteProdutoNaoExiste() {
+		try{
+			mercadoFacade.removeProduto("ABCDE");
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void searchProdutoNomeNull() {
+		try{
+			mercadoFacade.buscaProduto(null);
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void searchProdutoNomeVazio() {
+		try{
+			mercadoFacade.buscaProduto("");
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void searchProdutoNomeBranco() {
+		try{
+			mercadoFacade.buscaProduto("    ");
+		} catch(Exception error){
+			error.printStackTrace();
+		}
+	}
+
+	@Test
+	public void verifyProdutoDeletadoExiste() {
+		mercadoFacade.removeProduto(idP1);
+		assertEquals(0, mercadoFacade.listaProdutos().size());
 	}
 
 	@Test
@@ -105,7 +224,5 @@ class ProdutoTest {
 		assertTrue(targets.get(1).getNome().toLowerCase().contains("leite"));
 		assertTrue(targets.get(2).getNome().toLowerCase().contains("leite"));
 	}
-
-
 
 }
