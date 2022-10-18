@@ -193,9 +193,24 @@ class LoteTest {
     }
 
     @Test
-    public void searchLote() {
+    public void searchLoteDisponivel() {
         ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("Leite integral");
         assertEquals(1, targets.size());
+    }
+
+    @Test
+    public void searchLoteIndisponivel() {
+        ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("Leite integral");
+        assertEquals(1, targets.size());
+        targets = mercadoFacade.buscaProdutocomLote("Leite desnatado");
+        assertEquals(0, targets.size());
+
+        String jsonP2 = "{\"nome\":\"Leite desnatado\", \"fabricante\":\"Parmalat\", \"preco\":9.5}";
+
+        String idP2 = mercadoFacade.criaProduto(jsonP2);
+
+        String jsonL2 = "{\"idProduto\":\"" + idP2 + "\", \"quantidade\":\"0\", \"dataFabricacao\":12-09-2023}";
+        mercadoFacade.criaLote(jsonL2);
         targets = mercadoFacade.buscaProdutocomLote("Leite desnatado");
         assertEquals(0, targets.size());
     }
