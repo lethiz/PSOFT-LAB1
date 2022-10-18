@@ -16,17 +16,17 @@ import main.repositories.ProdutoRepository;
 
 public class LoteService {
 
-	private LoteRepository loteRep;
-	private ProdutoRepository produtoRep;
+	private LoteRepository loteRepository;
+	private ProdutoRepository produtoRepository;
 	private Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
 	
-	public LoteService(LoteRepository loteRep, ProdutoRepository prodRep) {
-		this.loteRep = loteRep;
-		this.produtoRep = prodRep; 
+	public LoteService(LoteRepository loteRepository, ProdutoRepository produtoRepository) {
+		this.loteRepository = loteRepository;
+		this.produtoRepository = produtoRepository;
 	}
 	
 	public Collection<Lote> listaLotes() {
-		return this.loteRep.getAll();
+		return this.loteRepository.getAll();
 	}
 	
 	public String addLote(String jsonData) {
@@ -35,10 +35,10 @@ public class LoteService {
 			if(loteDTO.getDataFabricacao() != null){
 				if(loteDTO.getIdProduto() != null && !loteDTO.getIdProduto().isEmpty() && !loteDTO.getIdProduto().isBlank()){
 				String idProduto = loteDTO.getIdProduto();
-				if(produtoRep.existProd(idProduto)){
-					Produto produto = this.produtoRep.getProd(loteDTO.getIdProduto());
+				if(produtoRepository.existProd(idProduto)){
+					Produto produto = this.produtoRepository.getProd(loteDTO.getIdProduto());
 					Lote lote = new Lote(produto, loteDTO.getQuantidade(), loteDTO.getDataFabricacao());
-					this.loteRep.addLote(lote);
+					this.loteRepository.addLote(lote);
 					return lote.getId();
 					} else throw new IllegalArgumentException("Parâmatro errado: produto não existe.");
 				} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do produto.");
@@ -48,8 +48,8 @@ public class LoteService {
 	}
 
 	public void deleteLote(String idLote) {
-		if(this.loteRep.existLote(idLote)){
-			this.loteRep.delLot(idLote);
+		if(this.loteRepository.existLote(idLote)){
+			this.loteRepository.delLot(idLote);
 		} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do lote.");
 	}
 
@@ -58,14 +58,14 @@ public class LoteService {
 			ArrayList<Lote> lotes = convertCollection();
 			lotes.stream().
 					filter(o -> idProduto.equals(o.getProduto().getId())).
-					forEach(lote -> this.loteRep.delLot(lote.getId()));
+					forEach(lote -> this.loteRepository.delLot(lote.getId()));
 		} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do produto.");
 	}
 
 	public ArrayList<Produto> searchProdutowithLote(String nomeProduto) {
 		if(nomeProduto != null && !nomeProduto.isEmpty() && !nomeProduto.isBlank()){
-			ArrayList<Lote> lotes = convertCollection();
-			return lotes.stream().
+			ArrayList<Lote> listaLotes = convertCollection();
+			return listaLotes.stream().
 					filter(lote ->
 							(lote.getProduto().getNome().toLowerCase()).contains(nomeProduto.toLowerCase())
 									&& lote.getQuantidade() > 0
@@ -75,7 +75,7 @@ public class LoteService {
 	}
 
 	private ArrayList<Lote> convertCollection() {
-		Collection<Lote> lotes = this.loteRep.getAll();
+		Collection<Lote> lotes = this.loteRepository.getAll();
 		return new ArrayList<Lote>(Arrays.asList(lotes.toArray(new Lote[0])));
 	}
 }

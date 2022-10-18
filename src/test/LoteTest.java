@@ -42,16 +42,6 @@ class LoteTest {
     }
 
     @Test
-    public void createLoteIdProdutoNaoExiste() {
-        String jsonL2 =  "{\"idProduto\":\"ABCDE\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
-        try{
-            mercadoFacade.criaLote(jsonL2);
-        } catch(Exception error){
-            error.printStackTrace();
-        }
-    }
-
-    @Test
     public void createLoteIdProdutoVazio() {
         String jsonL2 =  "{\"idProduto\":\"\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         try{
@@ -64,6 +54,16 @@ class LoteTest {
     @Test
     public void createLoteIdProdutoBranco() {
         String jsonL2 =  "{\"idProduto\":\"     \", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createLoteIdProdutoNaoExiste() {
+        String jsonL2 =  "{\"idProduto\":\"ABCDE\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         try{
             mercadoFacade.criaLote(jsonL2);
         } catch(Exception error){
@@ -141,7 +141,7 @@ class LoteTest {
     }
 
     @Test
-    public void searchProdutoWithLoteIdNull() {
+    public void searchProdutoWithLoteNomeNull() {
         try{
             mercadoFacade.buscaProdutocomLote(null);
         } catch(Exception error){
