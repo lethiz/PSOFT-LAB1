@@ -93,6 +93,16 @@ class LoteTest {
     }
 
     @Test
+    public void createLoteQuantidadeZero() {
+        String jsonL2 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"0\", \"dataFabricacao\":12-09-2023}";
+        try{
+            mercadoFacade.criaLote(jsonL2);
+        } catch(Exception error){
+            error.printStackTrace();
+        }
+    }
+
+    @Test
     public void createLoteDatadeValidadeNull() {
         String jsonL2 ="{\"idProduto\":\"" + idP1 + "\", \"quantidade\": 10}";
         try{
@@ -213,21 +223,25 @@ class LoteTest {
         String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         String idL2 = mercadoFacade.criaLote(jsonL1);
         ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("leiTe inTegral");
-        assertEquals(2, targets.size());
+        assertEquals(1, targets.size());
         targets = mercadoFacade.buscaProdutocomLote("leiTe desNatado");
         assertEquals(0, targets.size());
     }
 
     @Test
     public void searchLoteVariados() {
-        String jsonP2 = "{\"nome\":\"Leite de Soja\", \"fabricante\":\"Parmalat\", \"preco\":10.5}";
+        String jsonP2 = "{\"nome\":\"Leite de Soja\", \"fabricante\":\"Parmalat\", \"preco\":9.5}";
+        String jsonP3 = "{\"nome\":\"Leite desnatado\", \"fabricante\":\"Parmalat\", \"preco\":19.5}";
         String idP2 = mercadoFacade.criaProduto(jsonP2);
-
-        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
-        mercadoFacade.criaLote(jsonL1);
+        String idP3 = mercadoFacade.criaProduto(jsonP3);
 
         String jsonL2 = "{\"idProduto\":\"" + idP2 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         mercadoFacade.criaLote(jsonL2);
+
+        String jsonL3 = "{\"idProduto\":\"" + idP3 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
+        mercadoFacade.criaLote(jsonL3);
+
+
         ArrayList<Produto> targets = mercadoFacade.buscaProdutocomLote("LeiTe");
         assertEquals(3, targets.size());
         assertTrue(targets.get(0).getNome().toLowerCase().contains("leite"));

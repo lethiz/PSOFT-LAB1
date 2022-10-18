@@ -3,6 +3,7 @@ package main.services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ public class LoteService {
 	
 	public String addLote(String jsonData) {
 		LoteDTO loteDTO = gson.fromJson(jsonData, LoteDTO.class);
-		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() >= 0){
+		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() >= 1){
 			if(loteDTO.getDataFabricacao() != null){
 				if(loteDTO.getIdProduto() != null && !loteDTO.getIdProduto().isEmpty() && !loteDTO.getIdProduto().isBlank()){
 				String idProduto = loteDTO.getIdProduto();
@@ -69,9 +70,8 @@ public class LoteService {
 					filter(lote ->
 							(lote.getProduto().getNome().toLowerCase()).contains(nomeProduto.toLowerCase())
 									&& lote.getQuantidade() > 0
-					).map(Lote::getProduto).collect(Collectors.toCollection(ArrayList<Produto>::new));
+					).map(Lote::getProduto).distinct().collect(Collectors.toCollection(ArrayList<Produto>::new));
 		} else throw new IllegalArgumentException("Parâmatro errado: adicione o nome do produto.");
-
 	}
 
 	private ArrayList<Lote> convertCollection() {
