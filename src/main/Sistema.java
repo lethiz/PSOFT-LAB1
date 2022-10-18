@@ -54,7 +54,7 @@ public class Sistema {
 
 		System.out.println(mercadoFacade.listaLotes());
 
-		mercadoFacade.removeLote(idP2, 15, "15/09/2023");
+		mercadoFacade.removeLote(idL1);
 
 		System.out.println(mercadoFacade.listaLotes());
 

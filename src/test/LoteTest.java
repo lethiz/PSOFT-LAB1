@@ -52,35 +52,8 @@ class LoteTest {
         String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
         String idL2 = mercadoFacade.criaLote(jsonL1);
         assertEquals(2, mercadoFacade.listaLotes().size());
-        mercadoFacade.removeLote(idP1, 10, "12/09/2023");
-        assertEquals(0, mercadoFacade.listaLotes().size());
-    }
-
-    @Test
-    public void verifyLoteDeletadoDataIncorreta() {
-        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
-        String idL2 = mercadoFacade.criaLote(jsonL1);
-        assertEquals(2, mercadoFacade.listaLotes().size());
-        mercadoFacade.removeLote(idP1, 10, "15/09/2023");
-        assertEquals(2, mercadoFacade.listaLotes().size());
-    }
-
-    @Test
-    public void verifyLoteDeletadoQuantIncorreta() {
-        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
-        String idL2 = mercadoFacade.criaLote(jsonL1);
-        assertEquals(2, mercadoFacade.listaLotes().size());
-        mercadoFacade.removeLote(idP1, 11, "12/09/2023");
-        assertEquals(2, mercadoFacade.listaLotes().size());
-    }
-
-    @Test
-    public void verifyLoteIdProdutoIncorreto() {
-        String jsonL1 = "{\"idProduto\":\"" + idP1 + "\", \"quantidade\":\"10\", \"dataFabricacao\":12-09-2023}";
-        String idL2 = mercadoFacade.criaLote(jsonL1);
-        assertEquals(2, mercadoFacade.listaLotes().size());
-        mercadoFacade.removeLote("ID INCORRETO", 10, "12/09/2023");
-        assertEquals(2, mercadoFacade.listaLotes().size());
+        mercadoFacade.removeLote(idL1);
+        assertEquals(1, mercadoFacade.listaLotes().size());
     }
 
     @Test

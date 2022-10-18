@@ -53,8 +53,8 @@ public class Facade {
 		this.produtoService.deleteProduto(idProduto);
 	}
 
-	public void removeLote(String idProduto, int quantidade, String dataFabricacao) {
-		this.loteService.deleteLote(idProduto, quantidade, dataFabricacao);
+	public void removeLote(String idLote) {
+		this.loteService.deleteLote(idLote);
 	}
 
 	public ArrayList<Produto> buscaProduto(String nomeProduto) {
