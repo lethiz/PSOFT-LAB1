@@ -54,19 +54,19 @@ public class LoteService {
 	public void deleteLote(String idProduto, int quantidade, String dataFabricacao) {
 		ArrayList<Lote> lotes = convertCollection();
 		lotes.stream().
-				filter(o ->
-						o.getProduto().getId().equals(idProduto)
-							&& o.getQuantidade() == quantidade
-							&& o.getDataFabricacaoString().equals(dataFabricacao)
+				filter(lote ->
+						lote.getProduto().getId().equals(idProduto)
+							&& lote.getQuantidade() == quantidade
+							&& lote.getDataFabricacaoString().equals(dataFabricacao)
 				).forEach(lote -> this.loteRep.delLot(lote.getId()));
 	}
 
 	public ArrayList<Produto> searchProdutowithLote(String nomeProduto) {
 		ArrayList<Lote> lotes = convertCollection();
 		return lotes.stream().
-				filter(o ->
-						(o.getProduto().getNome().toLowerCase()).equals(nomeProduto.toLowerCase())
-								&& o.getQuantidade() > 0
+				filter(lote ->
+						(lote.getProduto().getNome().toLowerCase()).contains(nomeProduto.toLowerCase())
+								&& lote.getQuantidade() > 0
 				).map(Lote::getProduto).collect(Collectors.toCollection(ArrayList<Produto>::new));
 	}
 }
