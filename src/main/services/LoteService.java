@@ -31,12 +31,20 @@ public class LoteService {
 	
 	public String addLote(String jsonData) {
 		LoteDTO loteDTO = gson.fromJson(jsonData, LoteDTO.class);
-		Produto prod = this.produtoRep.getProd(loteDTO.getIdProduto());
-		
-		Lote lote = new Lote(prod, loteDTO.getQuantidade(), loteDTO.getDataFabricacao());
-		this.loteRep.addLote(lote);
+		if ( loteDTO.getQuantidade() != null && loteDTO.getQuantidade() > 0){
+			if(loteDTO.getDataFabricacao() != null){
+				String idProduto = loteDTO.getIdProduto();
+				if(idProduto != null ){
+					if(produtoRep.existProd(idProduto)){
+						Produto produto = this.produtoRep.getProd(loteDTO.getIdProduto());
+						Lote lote = new Lote(produto, loteDTO.getQuantidade(), loteDTO.getDataFabricacao());
+						this.loteRep.addLote(lote);
+						return lote.getId();
+					} else throw new IllegalArgumentException("Parâmatro errado: produto não existe.");
+				} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do produto.");
+			} else throw new IllegalArgumentException("Parâmatro errado: adicione data de fabricação.");
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione quantidade válida.");
 
-		return lote.getId();
 	}
 
 	public void deleteLotebyProduto(String idProduto){
@@ -47,12 +55,14 @@ public class LoteService {
 	}
 
 	private ArrayList<Lote> convertCollection() {
-		Collection<Lote> produtos = this.loteRep.getAll();
-		return new ArrayList<Lote>(Arrays.asList(produtos.toArray(new Lote[0])));
+		Collection<Lote> lotes = this.loteRep.getAll();
+		return new ArrayList<Lote>(Arrays.asList(lotes.toArray(new Lote[0])));
 	}
 
 	public void deleteLote(String idLote) {
-		this.loteRep.delLot(idLote);
+		if(this.loteRep.existLote(idLote)){
+			this.loteRep.delLot(idLote);
+		} else throw new IllegalArgumentException("Parâmatro errado: adicione o id do lote.");
 	}
 
 	public ArrayList<Produto> searchProdutowithLote(String nomeProduto) {
