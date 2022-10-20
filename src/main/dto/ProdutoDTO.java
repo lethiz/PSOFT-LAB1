@@ -6,23 +6,23 @@ public class ProdutoDTO {
 	
 	private String fabricante;
 	
-	private double preco;
+	private Double preco;
 
-	public ProdutoDTO(String nome, String fabricante, double preco) {
+	public ProdutoDTO(String nome, String fabricante, Double preco) {
 		this.nome = nome;
 		this.fabricante = fabricante;
 		this.preco = preco;
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public String getFabricante() {
-		return fabricante;
+		return this.fabricante;
 	}
 	
-	public double getPreco() {
-		return preco;
+	public Double getPreco() {
+		return this.preco;
 	}
 }

@@ -30,6 +30,10 @@ public class LoteRepository {
 	public void editLote(Lote lote) {
 		this.lotes.replace(lote.getId(), lote);
 	}
+
+	public boolean existLote(String id){
+		return this.lotes.containsKey(id);
+	}
 	
 	public String addLote(Lote lote) {
 		this.lotes.put(lote.getId(), lote);

@@ -5,15 +5,21 @@ import main.repositories.ProdutoRepository;
 import main.services.LoteService;
 import main.services.ProdutoService;
 import main.models.Lote;
-import main.models.Produto; 
+import main.models.Produto;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Essa classe conhece a classe correta para realizar uma operação requisitada no sistema.
+ * A Facade é responsável por delegar as ações às classes correspondentes.
+ * Observa-se apenas ações de repasse, sem implementação de lógica.
+ */
 public class Facade {
 	
 	// Repositórios
-	private ProdutoRepository produtoRep;
-	private LoteRepository loteRep;
+	private ProdutoRepository produtoRepository;
+	private LoteRepository loteRepository;
 	
 	// Serviços
 	private ProdutoService produtoService; 
@@ -21,10 +27,10 @@ public class Facade {
 	
 	
 	public Facade() {
-		this.produtoRep = new ProdutoRepository();
-		this.loteRep = new LoteRepository();
-		this.produtoService = new ProdutoService(loteRep, produtoRep);
-		this.loteService = new LoteService(loteRep, produtoRep);
+		this.produtoRepository = new ProdutoRepository();
+		this.loteRepository = new LoteRepository();
+		this.loteService = new LoteService(loteRepository, produtoRepository);
+		this.produtoService = new ProdutoService(loteService, produtoRepository);
 	}
 	
 	public Collection<Produto> listaProdutos() {
@@ -42,4 +48,21 @@ public class Facade {
 	public String criaLote(String data) {
 		return this.loteService.addLote(data);
 	}
+
+	public void removeProduto(String idProduto) {
+		this.produtoService.deleteProduto(idProduto);
+	}
+
+	public void removeLote(String idLote) {
+		this.loteService.deleteLote(idLote);
+	}
+
+	public ArrayList<Produto> buscaProduto(String nomeProduto) {
+		return this.produtoService.searchProduto(nomeProduto);
+	}
+
+	public ArrayList<Produto> buscaProdutocomLote(String nomeProduto) {
+		return this.loteService.searchProdutowithLote(nomeProduto);
+	}
+
 }

@@ -1,22 +1,31 @@
 package main.dto;
 
+import java.util.Date;
+
 public class LoteDTO {
 	
 	private String idProduto;
 	
-	private int quantidade; 
-	
-	public LoteDTO(String idProduto, int quantidade) {
-		
+	private Integer quantidade;
+
+	private Date dataFabricacao;
+
+	public LoteDTO(String idProduto, Integer quantidade, Date dataFabricacao) {
 		this.idProduto = idProduto;
 		this.quantidade = quantidade;
-	}
-	
-	public String getIdProduto() {
-		return idProduto;
+		this.dataFabricacao = dataFabricacao;
 	}
 
-	public int getQuantidade() {
-		return quantidade;
+	public String getIdProduto() {
+		return this.idProduto;
 	}
+
+	public Integer getQuantidade() {
+		return this.quantidade;
+	}
+
+	public Date getDataFabricacao() {
+		return this.dataFabricacao;
+	}
+
 }
